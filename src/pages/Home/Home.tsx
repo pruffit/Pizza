@@ -18,6 +18,7 @@ export const Home = () => {
     .then((res) => res.json())
     .then((json) => setItems(json))
     .then(() => setIsLoading(false))
+		window.scrollTo(0, 0)
   }, [])
 
 	return (
