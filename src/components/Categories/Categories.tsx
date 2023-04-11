@@ -1,10 +1,11 @@
-import {useState} from 'react'
+import React from 'react'
+
+import { ICategory } from './Category.props'
 
 import styles from './Categories.module.scss'
 
-export const Categories = () => {
+export const Categories = ({ categoryId, onClickCategory } : ICategory) => {
 	const categories = ['Все','Мясные','Вегетарианские','Гриль','Острые','Закрытые']
-	const [activeCategory, setActiveCategory] = useState(0)
 
 	return (
 		<div className={styles.categories}>
@@ -12,8 +13,8 @@ export const Categories = () => {
 				{categories.map((category, index) => (
 					<li
 						key={index}
-						onClick={() => {setActiveCategory(index)}} 
-						className={activeCategory === index ? styles.active : ''}
+						onClick={() => {onClickCategory(index)}} 
+						className={categoryId === index ? styles.active : ''}
 					>{category}</li>
 				))}
 			</ul>
