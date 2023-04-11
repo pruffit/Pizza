@@ -1,30 +1,26 @@
 import React from 'react'
+import { Route, Routes } from 'react-router-dom'
 
 import { Header } from '../../components/Header/Header'
-import { Categories } from '../../components/Categories/Categories'
-import { Sort } from '../../components/Sort/Sort'
-import { Product } from '../../components/Product/Product'
+
+import { Home } from '../../pages/Home/Home'
+import { NotFound } from '../../pages/NotFound/NotFound'
+import { Cart } from '../../pages/Cart/Cart'
 
 import styles from './App.module.scss'
 
-import data from '../../data/index.json'
-
 export const App = () => {
+
   return (
     <div className={styles.wrapper}>
       <Header/>
       <div className={styles.content}>
         <div className={styles.container}>
-          <div className={styles.top}>
-            <Categories/>
-            <Sort/>
-          </div>
-          <h2 className={styles.title}>Все пиццы</h2>
-          <div className={styles.items}>
-            {data.map((item, index) => (
-              <Product key={index} {...item}/>
-            ))}
-          </div>
+          <Routes>
+            <Route path='/' element={<Home/>}/>
+            <Route path='/cart' element={<Cart/>}/>
+            <Route path='*' element={<NotFound/>}/>
+          </Routes>
         </div>
       </div>
     </div>
