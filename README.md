@@ -1,4 +1,4 @@
-![License](https://img.shields.io/github/license/pruffit/Pizza.svg?style=for-the-badge) ![Repo Size](https://img.shields.io/github/languages/code-size/pruffit/Pizza.svg?style=for-the-badge) ![TOP_LANGUAGE](https://img.shields.io/github/languages/top/pruffit/Pizza.svg?style=for-the-badge) ![FORKS](https://img.shields.io/github/forks/pruffit/Pizza.svg?style=for-the-badge&social) ![Stars](https://img.shields.io/github/stars/pruffit/Pizza.svg?style=for-the-badge)
+![Repo Size](https://img.shields.io/github/languages/code-size/pruffit/Pizza.svg?style=for-the-badge) ![TOP_LANGUAGE](https://img.shields.io/github/languages/top/pruffit/Pizza.svg?style=for-the-badge) ![Stars](https://img.shields.io/github/stars/pruffit/Pizza.svg?style=for-the-badge)
     
 # React Pizza
 

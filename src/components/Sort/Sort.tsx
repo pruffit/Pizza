@@ -1,12 +1,23 @@
-import React from 'react'
+import {useState} from 'react'
 
 import styles from './Sort.module.scss'
 
 export const Sort = () => {
+	const [open, setOpen] = useState(false)
+	const [activeItem, setActiveItem] = useState(0)
+	const list = ['популярности', 'цене', 'алфавиту']
+
+	const onClickListItem = (index : any) => {
+		setActiveItem(index)
+		setOpen(false)
+	}
 	return (
 		<div className={styles.sort}>
 			<div className={styles.label}>
+				<b>Сортировка по:</b>
+				<span onClick={() => setOpen(!open)}>{list[activeItem]}</span>
 				<svg
+					className={open ? styles.active : ''}
 					width="10"
 					height="6"
 					viewBox="0 0 10 6"
@@ -18,16 +29,20 @@ export const Sort = () => {
 						fill="#2C2C2C"
 					/>
 				</svg>
-				<b>Сортировка по:</b>
-				<span>популярности</span>
 			</div>
-			<div className={styles.popup}>
-				<ul>
-					<li className={styles.active}>популярности</li>
-					<li>цене</li>
-					<li>алфавиту</li>
-				</ul>
-			</div>
+			{open && (
+				<div className={styles.popup}>
+					<ul>
+						{list.map((item, index) => (
+							<li 
+								key={index}
+								onClick={() => {onClickListItem(index)}} 
+								className={activeItem === index ? styles.active : ''}
+							>{item}</li>
+						))}
+					</ul>
+				</div>
+			)}
 		</div>
 	)
 }

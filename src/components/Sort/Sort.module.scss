@@ -7,7 +7,11 @@
   display: flex;
   align-items: center;
   svg {
-    margin-right: 8px;
+    margin-left: 8px;
+    transform: rotate(180deg);
+    &.active{
+      transform: rotate(0deg);
+    }
   }
   b {
     margin-right: 8px;
