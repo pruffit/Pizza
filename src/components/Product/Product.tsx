@@ -1,30 +1,49 @@
-import React from 'react'
+import { useState } from 'react'
+
+import { IProduct } from './Product.props'
 
 import styles from './Product.module.scss'
 
-export const Product = () => {
+export const Product = ({title, imageUrl, types, sizes, price} : IProduct) => {
+	const [count, setCount] = useState(0)
+	const [activeSize, setActiveSize] = useState(0)
+	const [activeType, setActiveType] = useState(0)
+	const typeNames = ['тонкое', 'традиционное']
+
 	return (
 		<div className={styles.product}>
 			<img
 				className={styles.image}
-				src="https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"
+				src={imageUrl}
 				alt="Pizza"
 			/>
-			<h4 className={styles.title}>Чизбургер-пицца</h4>
+			<h4 className={styles.title}>{title}</h4>
 			<div className={styles.selector}>
 				<ul>
-					<li className={styles.active}>тонкое</li>
-					<li>традиционное</li>
+					{types.map((type: any, index) => (
+						<li
+							key={index}
+							onClick={() => {setActiveType(index)}} 
+							className={activeType === index ? styles.active : ''}
+						>{typeNames[type]}</li>
+					))}
 				</ul>
 				<ul>
-					<li className={styles.active}>26 см.</li>
-					<li>30 см.</li>
-					<li>40 см.</li>
+					{sizes.map((size : any, index) => (
+						<li
+							key={index} 
+							onClick={() => {setActiveSize(index)}} 
+							className={activeSize === index ? styles.active : ''}
+						>{size}</li>
+					))}
 				</ul>
 			</div>
 			<div className={styles.bottom}>
-				<div className={styles.price}>от 395 ₽</div>
-				<div className="button button--outline button--add">
+				<div className={styles.price}>от {price} ₽</div>
+				<button 
+					className="button button--outline button--add" 
+					onClick={() => setCount(count + 1)}
+				>
 					<svg
 						width="12"
 						height="12"
@@ -38,8 +57,8 @@ export const Product = () => {
 						/>
 					</svg>
 					<span>Добавить</span>
-					<i>2</i>
-				</div>
+					<i>{count}</i>
+				</button>
 			</div>
 		</div>
 	)

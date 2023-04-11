@@ -7,6 +7,8 @@ import { Product } from '../../components/Product/Product'
 
 import styles from './App.module.scss'
 
+import data from '../../data/index.json'
+
 export const App = () => {
   return (
     <div className={styles.wrapper}>
@@ -19,14 +21,9 @@ export const App = () => {
           </div>
           <h2 className={styles.title}>Все пиццы</h2>
           <div className={styles.items}>
-            <Product/>
-            <Product/>
-            <Product/>
-            <Product/>
-            <Product/>
-            <Product/>
-            <Product/>
-            <Product/>
+            {data.map((item, index) => (
+              <Product key={index} {...item}/>
+            ))}
           </div>
         </div>
       </div>
