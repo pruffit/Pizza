@@ -1,4 +1,4 @@
 export interface ISort{
-	value: any,
+	sortType: any,
 	onClickSort: Function
 }

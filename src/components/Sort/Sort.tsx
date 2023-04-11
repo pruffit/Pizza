@@ -4,7 +4,7 @@ import { ISort } from './Sort.props'
 
 import styles from './Sort.module.scss'
 
-export const Sort = ({ value, onClickSort } : ISort) => {
+export const Sort = ({ sortType, onClickSort } : ISort) => {
 	const [open, setOpen] = useState(false)
 	const list = [
 		{name: 'популярности (DESC)', sort: 'rating'},
@@ -23,7 +23,7 @@ export const Sort = ({ value, onClickSort } : ISort) => {
 		<div className={styles.sort}>
 			<div className={styles.label}>
 				<b>Сортировка по:</b>
-				<span onClick={() => setOpen(!open)}>{value.name}</span>
+				<span onClick={() => setOpen(!open)}>{sortType.name}</span>
 				<svg
 					className={open ? styles.active : ''}
 					width="10"
@@ -45,7 +45,7 @@ export const Sort = ({ value, onClickSort } : ISort) => {
 							<li 
 								key={index}
 								onClick={() => {onClickListItem(obj)}} 
-								className={value.sort === obj.sort ? styles.active : ''}
+								className={sortType.sort === obj.sort ? styles.active : ''}
 							>{obj.name}</li>
 						))}
 					</ul>

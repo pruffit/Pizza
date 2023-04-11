@@ -1,11 +1,15 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+import { IHeader } from './Header.props'
+
+import { Search } from '../Search/Search'
+
 import styles from './Header.module.scss'
 
 import logo from '/logo.svg'
 
-export const Header = () => {
+export const Header = ({ searchValue, setSearchValue }: IHeader) => {
 	return (
 		<div className={styles.header}>
 			<div className={styles.container}>
@@ -19,6 +23,7 @@ export const Header = () => {
 							</div>
 						</div>
 					</Link>
+					<Search searchValue={searchValue} setSearchValue={setSearchValue}/>
 					<Link to='/cart'>
 						<div className="button button--cart">
 							<span>520 ₽</span>
