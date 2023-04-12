@@ -12,7 +12,6 @@ import styles from './App.module.scss'
 export const SearchContext = createContext()
 
 export const App = () => {
-
   const [searchValue, setSearchValue] = useState('')
 
   return (
