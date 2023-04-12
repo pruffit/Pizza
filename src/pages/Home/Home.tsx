@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 
-import { IHome } from './Home.props'
 import { IProduct } from '../../components/Product/Product.props'
+
+import { SearchContext } from '../../components/App/App'
 
 import { Categories } from '../../components/Categories/Categories'
 import { Sort } from '../../components/Sort/Sort'
@@ -11,7 +12,8 @@ import { Pagination } from '../../components/Pagination/Pagination'
 
 import styles from './Home.module.scss'
 
-export const Home = ({ searchValue, setSearchValue } : IHome) => {
+export const Home = () => {
+	const { searchValue } = useContext(SearchContext)
 	const [items, setItems] = useState([])
   const [isLoading, setIsLoading] = useState(true)
 	const [categoryId, setCategoryId] = useState(0)
