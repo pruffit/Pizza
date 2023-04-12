@@ -1,29 +1,35 @@
-import {useState} from 'react'
+import { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 
-import { ISort } from './Sort.props'
+import { setSort } from '../../redux/slices/filterSlice'
 
 import styles from './Sort.module.scss'
 
-export const Sort = ({ sortType, onClickSort } : ISort) => {
-	const [open, setOpen] = useState(false)
-	const list = [
-		{name: 'популярности (DESC)', sort: 'rating'},
-		{name: 'популярности (ASC)', sort: '-rating'}, 
-		{name: 'цене (DESC)', sort: 'price'}, 
-		{name: 'цене (ASC)', sort: '-price'},
-		{name: 'алфавиту (DESC)', sort: 'title'},
-		{name: 'алфавиту (ASC)', sort: '-title'},
-	]
+const list = [
+	{name: 'популярности (DESC)', sortProperty: 'rating'},
+	{name: 'популярности (ASC)', sortProperty: '-rating'}, 
+	{name: 'цене (DESC)', sortProperty: 'price'}, 
+	{name: 'цене (ASC)', sortProperty: '-price'},
+	{name: 'алфавиту (DESC)', sortProperty: 'title'},
+	{name: 'алфавиту (ASC)', sortProperty: '-title'},
+]
 
-	const onClickListItem = (index : any) => {
-		onClickSort(index)
+export const Sort = () => {
+	const dispatch = useDispatch()
+	const sort = useSelector(state => state.filter.sort)
+
+	const [open, setOpen] = useState(false)
+
+	const onClickListItem = (obj : any) => {
+		dispatch(setSort(obj))
 		setOpen(false)
 	}
+	
 	return (
 		<div className={styles.sort}>
 			<div className={styles.label}>
 				<b>Сортировка по:</b>
-				<span onClick={() => setOpen(!open)}>{sortType.name}</span>
+				<span onClick={() => setOpen(!open)}>{sort.name}</span>
 				<svg
 					className={open ? styles.active : ''}
 					width="10"
@@ -45,7 +51,7 @@ export const Sort = ({ sortType, onClickSort } : ISort) => {
 							<li 
 								key={index}
 								onClick={() => {onClickListItem(obj)}} 
-								className={sortType.sort === obj.sort ? styles.active : ''}
+								className={sort.sort === obj.sortProperty ? styles.active : ''}
 							>{obj.name}</li>
 						))}
 					</ul>
