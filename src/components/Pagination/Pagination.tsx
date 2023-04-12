@@ -5,7 +5,7 @@ import { IPagination } from './Pagination.props'
 
 import styles from './Pagination.module.scss'
 
-export const Pagination = ({ onChangePage } : IPagination) => {
+export const Pagination = ({ currentPage, onChangePage } : IPagination) => {
 	return (
 		<ReactPaginate
 			className={styles.pagination}
@@ -15,6 +15,7 @@ export const Pagination = ({ onChangePage } : IPagination) => {
 			onPageChange={(event) => onChangePage(event.selected + 1)}
 			pageRangeDisplayed={4}
 			pageCount={3}
+			forcePage={currentPage - 1}
   	/>
 	)
 }
