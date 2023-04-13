@@ -1,14 +1,33 @@
 import { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+
+import { addProduct } from '../../redux/slices/cartSlice'
 
 import { IProduct } from './Product.props'
 
 import styles from './Product.module.scss'
 
-export const Product = ({title, imageUrl, types, sizes, price} : IProduct) => {
-	const [count, setCount] = useState(0)
+const typeNames = ['тонкое', 'традиционное']
+
+export const Product = ({ id, title, imageUrl, types, sizes, price } : IProduct) => {
+	const dispatch = useDispatch()
+	const cartProduct = useSelector(state => state.cart.products.find(obj => obj.id === id))
 	const [activeSize, setActiveSize] = useState(0)
 	const [activeType, setActiveType] = useState(0)
-	const typeNames = ['тонкое', 'традиционное']
+
+	const count = cartProduct ? cartProduct.count : 0
+
+	const onClickAdd = () => {
+		const product = {
+			id,
+			title,
+			price,
+			imageUrl,
+			type: typeNames[activeType],
+			size: sizes[activeSize],
+		}
+		dispatch(addProduct(product))
+	}
 
 	return (
 		<div className={styles.product}>
@@ -42,7 +61,7 @@ export const Product = ({title, imageUrl, types, sizes, price} : IProduct) => {
 				<div className={styles.price}>от {price} ₽</div>
 				<button 
 					className="button button--outline button--add" 
-					onClick={() => setCount(count + 1)}
+					onClick={onClickAdd}
 				>
 					<svg
 						width="12"
@@ -57,7 +76,7 @@ export const Product = ({title, imageUrl, types, sizes, price} : IProduct) => {
 						/>
 					</svg>
 					<span>Добавить</span>
-					<i>{count}</i>
+					{ count > 0 &&  <i>{count}</i>}
 				</button>
 			</div>
 		</div>

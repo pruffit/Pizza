@@ -1,5 +1,5 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 import { Search } from '../Search/Search'
 
@@ -8,6 +8,8 @@ import styles from './Header.module.scss'
 import logo from '/logo.svg'
 
 export const Header = () => {
+	const {products, totalPrice} = useSelector(state => state.cart)
+	const total = products.reduce((sum, product) => sum + product.count, 0)
 	return (
 		<div className={styles.header}>
 			<div className={styles.container}>
@@ -24,7 +26,7 @@ export const Header = () => {
 					<Search/>
 					<Link to='/cart'>
 						<div className="button button--cart">
-							<span>520 ₽</span>
+							<span>{totalPrice} ₽</span>
 							<div className="button__delimiter"></div>
 							<svg
 								width="18"
@@ -55,7 +57,7 @@ export const Header = () => {
 									strokeLinejoin="round"
 								/>
 							</svg>
-							<span>3</span>
+							<span>{total}</span>
 						</div>
 					</Link>
 				</div>

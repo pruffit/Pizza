@@ -95,7 +95,7 @@ export const Home = () => {
 			<div className={styles.items}>
 				{
 					isLoading ? 
-					[...new Array(8)].map((_, index) => <ProductSkeleton key={index}/>) :
+					[...new Array(4)].map((_, index) => <ProductSkeleton key={index}/>) :
 					items.map((item : IProduct, index) => <Product key={index} {...item}/>)
 				}
 			</div>
