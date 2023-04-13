@@ -5,7 +5,7 @@ import { setSort } from '../../redux/slices/filterSlice'
 
 import styles from './Sort.module.scss'
 
-const list = [
+export const sortList = [
 	{name: 'популярности (DESC)', sortProperty: 'rating'},
 	{name: 'популярности (ASC)', sortProperty: '-rating'}, 
 	{name: 'цене (DESC)', sortProperty: 'price'}, 
@@ -47,7 +47,7 @@ export const Sort = () => {
 			{open && (
 				<div className={styles.popup}>
 					<ul>
-						{list.map((obj, index) => (
+						{sortList.map((obj, index) => (
 							<li 
 								key={index}
 								onClick={() => {onClickListItem(obj)}} 
