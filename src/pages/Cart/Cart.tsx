@@ -1,4 +1,4 @@
-import React from 'react'
+import { FC } from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -9,11 +9,11 @@ import { CartItem } from '../../components/CartItem/CartItem'
 import styles from './Cart.module.scss'
 import { CartEmpty } from '../../components/CartEmpty/CartEmpty'
 
-export const Cart = () => {
+export const Cart: FC = () => {
 	const dispatch = useDispatch()
 	const { totalPrice, products } = useSelector(selectCart)
 
-	const total = products.reduce((sum, product) => sum + product.count, 0)
+	const total = products.reduce((sum: number, product: any) => sum + product.count, 0)
 
 	const onClickClear = () => {
     if (window.confirm('Очистить корзину?')) {
@@ -92,7 +92,7 @@ export const Cart = () => {
 					</div>
 				</div>
 				<div className={styles.items}>
-					{products.map(product => <CartItem key={product.id} {...product} />)}
+					{products.map((product: any) => <CartItem key={product.id} {...product} />)}
 				</div>
 				<div className={styles.bottom}>
 					<div className={styles.details}>

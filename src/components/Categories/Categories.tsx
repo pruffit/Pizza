@@ -1,10 +1,13 @@
-import React from 'react'
-
-import { ICategory } from './Category.props'
+import { FC } from 'react'
 
 import styles from './Categories.module.scss'
 
-export const Categories = ({ categoryId, onClickCategory } : ICategory) => {
+type CategoriesProps = {
+	categoryId: number;
+	onClickCategory: any;
+}
+
+export const Categories: FC<CategoriesProps> = ({ categoryId, onClickCategory }) => {
 	const categories = ['Все','Мясные','Вегетарианские','Гриль','Острые','Закрытые']
 
 	return (

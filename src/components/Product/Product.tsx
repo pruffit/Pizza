@@ -1,16 +1,23 @@
-import { useState } from 'react'
+import { FC, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { addProduct, selectCartItemById } from '../../redux/slices/cartSlice'
-
-import { IProduct } from './Product.props'
 
 import styles from './Product.module.scss'
 import { Link } from 'react-router-dom'
 
 const typeNames = ['тонкое', 'традиционное']
 
-export const Product = ({ id, title, imageUrl, types, sizes, price } : IProduct) => {
+type ProductProps = {
+	id: string;
+	title: string;
+	imageUrl: string;
+	types: number[];
+	sizes: number[];
+	price: number;
+}
+
+export const Product: FC<ProductProps> = ({ id, title, imageUrl, types, sizes, price }) => {
 	const dispatch = useDispatch()
 	const cartProduct = useSelector(selectCartItemById(id))
 	const [activeSize, setActiveSize] = useState(0)
@@ -42,7 +49,7 @@ export const Product = ({ id, title, imageUrl, types, sizes, price } : IProduct)
 			</Link>
 			<div className={styles.selector}>
 				<ul>
-					{types.map((type: any, index) => (
+					{types.map((type, index) => (
 						<li
 							key={index}
 							onClick={() => {setActiveType(index)}} 
@@ -51,7 +58,7 @@ export const Product = ({ id, title, imageUrl, types, sizes, price } : IProduct)
 					))}
 				</ul>
 				<ul>
-					{sizes.map((size : any, index) => (
+					{sizes.map((size, index) => (
 						<li
 							key={index} 
 							onClick={() => {setActiveSize(index)}} 

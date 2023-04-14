@@ -1,14 +1,10 @@
-import { useState, useEffect, useContext, useRef } from 'react'
+import { FC, useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import qs from 'qs'
 import { useNavigate } from 'react-router-dom'
 
 import { fetchProducts, selectProduct } from '../../redux/slices/productSlice'
 import { selectFilter, setCategoryId, setCurrentPage, setFilters } from '../../redux/slices/filterSlice'
-
-import { IProduct } from '../../components/Product/Product.props'
-
-import { SearchContext } from '../../components/App/App'
 
 import { Categories } from '../../components/Categories/Categories'
 import { Sort, sortList } from '../../components/Sort/Sort'
@@ -18,7 +14,7 @@ import { Pagination } from '../../components/Pagination/Pagination'
 
 import styles from './Home.module.scss'
 
-export const Home = () => {
+export const Home: FC = () => {
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 	const isSearch = useRef(false)
@@ -27,12 +23,12 @@ export const Home = () => {
 	const { categoryId, sort, currentPage, searchValue } = useSelector(selectFilter)
 	const { items, status } = useSelector(selectProduct)
 
-	const onClickCategory = (id : Number) => {
-		dispatch(setCategoryId(id))
+	const onClickCategory = (index : number) => {
+		dispatch(setCategoryId(index))
 	}
 
-	const onChangePage = (number: Number) => {
-		dispatch(setCurrentPage(number))
+	const onChangePage = (page: number) => {
+		dispatch(setCurrentPage(page))
 	}
 
 	const getProducts = async () => {
@@ -41,7 +37,9 @@ export const Home = () => {
 		const order = sort.sortProperty.includes('-') ? 'asc' : 'desc'
 		const search = searchValue ? `&search=${searchValue}` : ''
 
-		dispatch(fetchProducts({
+		dispatch(
+			//@ts-ignore
+			fetchProducts({
 				category,
 				sortBy,
 				order,
@@ -107,7 +105,7 @@ export const Home = () => {
 						{
 							status === 'loading' ? 
 							[...new Array(4)].map((_, index) => <ProductSkeleton key={index}/>) :
-							items.map((item : IProduct, index) => <Product key={index} {...item}/>)
+							items.map((item: any, index: number) => <Product key={index} {...item}/>)
 						}
 					</div>
 				)

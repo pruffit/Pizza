@@ -1,9 +1,9 @@
-import React from 'react'
+import { FC } from 'react'
 import ContentLoader from 'react-content-loader'
 
 import styles from './Product.module.scss'
 
-export const ProductSkeleton = () => {
+export const ProductSkeleton: FC = () => {
 	return (
 		<ContentLoader
 			className={styles.product}

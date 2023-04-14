@@ -1,3 +1,4 @@
+import { FC } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
 import { MainLayout } from '../../layouts/MainLayout/MainLayout'
@@ -7,7 +8,7 @@ import { ProductPage } from '../../pages/ProductPage/ProductPage'
 import { Cart } from '../../pages/Cart/Cart'
 import { NotFound } from '../../pages/NotFound/NotFound'
 
-export const App = () => {
+export const App: FC = () => {
   return (
     <Routes>
       <Route path='/' element={<MainLayout />}>

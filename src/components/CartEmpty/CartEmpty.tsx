@@ -1,15 +1,15 @@
-import React from 'react'
+import { FC } from 'react'
 import { Link } from 'react-router-dom'
 
 import cartEmptyImg from '/empty-cart.png';
 
 import styles from './CartEmpty.module.scss'
 
-export const CartEmpty = () => {
+export const CartEmpty: FC = () => {
 	return (
 		<div className={styles.cart_empty}>
 			<h2>
-				Корзина пустая <span>😕</span>
+				Корзина пустая 😕
 			</h2>
 			<p>
 				Вероятней всего, вы не заказывали ещё пиццу.

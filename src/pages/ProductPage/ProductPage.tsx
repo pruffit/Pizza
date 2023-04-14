@@ -1,11 +1,16 @@
-import { useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 import styles from './ProductPage.module.scss'
 
-export const ProductPage = () => {
-	const [product, setProduct] = useState()
+export const ProductPage: FC = () => {
+	const [product, setProduct] = useState<{
+		imageUrl: string,
+		title: string,
+		description: string,
+		price: number,
+	}>()
 	const { id } = useParams()
 	const navigate = useNavigate()
 
@@ -23,7 +28,7 @@ export const ProductPage = () => {
 	}, [])
 
 	if(!product) {
-		return 'Загрузка...'
+		return <>Загрузка...</>
 	} else {
 		return (
 			<div className={styles.product}>

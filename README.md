@@ -5,22 +5,16 @@
 ## Table of Contents
 
 - [Description](#description)
-- [Screenshots](#screenshots)
 - [Built With](#built-with)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
-- [License](#license)
 - [Contacts](#contacts)
 
 ## Description
 
 This is a pet project.
-TypeScript, React, Redux.
-
-## Screenshots
-
-<img src="https://downloader.disk.yandex.ru/preview/df0182097d745b44e0111225405cb8c335e22fb0ee480e765dc65838f37b61d5/643587e4/ZlEi0EtYz7WnoqfPFkAyhluWSL7lNbp3Gv30VZBomtwDQqGamp8SipYBvJe81GkdpEr_OoGG3Ls7guUAXYW4uQ%3D%3D?uid=0&filename=2023-04-11_16-16-03.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048"/>
+React, Redux, TypeScript.
 
 ## Built With
 
@@ -30,7 +24,7 @@ TypeScript, React, Redux.
 
 ### Prerequisites
 
-What do I need to install before I can run your project
+What do I need to install before I can run your project.
 
 ### Installation
 
@@ -38,10 +32,6 @@ What do I need to install before I can run your project
 2. 'yarn'
 3. 'yarn dev'
 4. enjoy)
-
-## License
-
-<a href="https://choosealicense.com/licenses/mit/"><img src="https://raw.githubusercontent.com/johnturner4004/readme-generator/master/src/components/assets/images/mit.svg" height=40 />MIT License</a>
 
 ## Contacts
 

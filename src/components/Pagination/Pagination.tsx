@@ -1,11 +1,14 @@
-import React from 'react'
+import { FC } from 'react'
 import ReactPaginate from 'react-paginate'
-
-import { IPagination } from './Pagination.props'
 
 import styles from './Pagination.module.scss'
 
-export const Pagination = ({ currentPage, onChangePage } : IPagination) => {
+type PaginationProps = {
+	currentPage: number;
+	onChangePage: any;
+}
+
+export const Pagination: FC<PaginationProps> = ({ currentPage, onChangePage }) => {
 	return (
 		<ReactPaginate
 			className={styles.pagination}

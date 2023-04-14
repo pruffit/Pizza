@@ -1,3 +1,4 @@
+import { FC } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
@@ -9,9 +10,9 @@ import styles from './Header.module.scss'
 
 import logo from '/logo.svg'
 
-export const Header = () => {
+export const Header: FC = () => {
 	const {products, totalPrice} = useSelector(selectCart)
-	const total = products.reduce((sum, product) => sum + product.count, 0)
+	const total = products.reduce((sum: number, product: any) => sum + product.count, 0)
 	const location = useLocation()
 	const pathName = location.pathname
 
