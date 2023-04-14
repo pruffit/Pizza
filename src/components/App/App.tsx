@@ -1,27 +1,21 @@
-import { createContext, useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
-import { Header } from '../../components/Header/Header'
+import { MainLayout } from '../../layouts/MainLayout/MainLayout'
 
 import { Home } from '../../pages/Home/Home'
-import { NotFound } from '../../pages/NotFound/NotFound'
+import { ProductPage } from '../../pages/ProductPage/ProductPage'
 import { Cart } from '../../pages/Cart/Cart'
-
-import styles from './App.module.scss'
+import { NotFound } from '../../pages/NotFound/NotFound'
 
 export const App = () => {
   return (
-    <div className={styles.wrapper}>
-      <Header/>
-      <div className={styles.content}>
-        <div className={styles.container}>
-          <Routes>
-            <Route path='/' element={<Home/>}/>
-            <Route path='/cart' element={<Cart/>}/>
-            <Route path='*' element={<NotFound/>}/>
-          </Routes>
-        </div>
-      </div>
-    </div>
+    <Routes>
+      <Route path='/' element={<MainLayout />}>
+        <Route path='' element={<Home />}/>
+        <Route path='product/:id' element={<ProductPage />}/>
+        <Route path='cart' element={<Cart />}/>
+        <Route path='*' element={<NotFound />}/>
+      </Route>
+    </Routes>
   )
 }

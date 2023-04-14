@@ -6,6 +6,7 @@ import { addProduct, selectCartItemById } from '../../redux/slices/cartSlice'
 import { IProduct } from './Product.props'
 
 import styles from './Product.module.scss'
+import { Link } from 'react-router-dom'
 
 const typeNames = ['тонкое', 'традиционное']
 
@@ -36,7 +37,9 @@ export const Product = ({ id, title, imageUrl, types, sizes, price } : IProduct)
 				src={imageUrl}
 				alt="Pizza"
 			/>
-			<h4 className={styles.title}>{title}</h4>
+			<Link to={`/product/${id}`}>
+				<h4 className={styles.title}>{title}</h4>
+			</Link>
 			<div className={styles.selector}>
 				<ul>
 					{types.map((type: any, index) => (
