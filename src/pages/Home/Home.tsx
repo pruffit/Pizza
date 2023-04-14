@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import qs from 'qs'
 import { useNavigate } from 'react-router-dom'
 
-import { fetchProducts } from '../../redux/slices/productSlice'
-import { setCategoryId, setCurrentPage, setFilters } from '../../redux/slices/filterSlice'
+import { fetchProducts, selectProduct } from '../../redux/slices/productSlice'
+import { selectFilter, setCategoryId, setCurrentPage, setFilters } from '../../redux/slices/filterSlice'
 
 import { IProduct } from '../../components/Product/Product.props'
 
@@ -24,10 +24,8 @@ export const Home = () => {
 	const isSearch = useRef(false)
 	const isMounted = useRef(false)
 
-	const { categoryId, sort, currentPage } = useSelector(state => state.filter)
-	const { items, status } = useSelector(state => state.product)
-
-	const { searchValue } = useContext(SearchContext)
+	const { categoryId, sort, currentPage, searchValue } = useSelector(selectFilter)
+	const { items, status } = useSelector(selectProduct)
 
 	const onClickCategory = (id : Number) => {
 		dispatch(setCategoryId(id))

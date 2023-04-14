@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { addProduct } from '../../redux/slices/cartSlice'
+import { addProduct, selectCartItemById } from '../../redux/slices/cartSlice'
 
 import { IProduct } from './Product.props'
 
@@ -11,7 +11,7 @@ const typeNames = ['тонкое', 'традиционное']
 
 export const Product = ({ id, title, imageUrl, types, sizes, price } : IProduct) => {
 	const dispatch = useDispatch()
-	const cartProduct = useSelector(state => state.cart.products.find(obj => obj.id === id))
+	const cartProduct = useSelector(selectCartItemById(id))
 	const [activeSize, setActiveSize] = useState(0)
 	const [activeType, setActiveType] = useState(0)
 

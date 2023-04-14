@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
+import { selectCart } from '../../redux/slices/cartSlice'
+
 import { Search } from '../Search/Search'
 
 import styles from './Header.module.scss'
@@ -8,7 +10,7 @@ import styles from './Header.module.scss'
 import logo from '/logo.svg'
 
 export const Header = () => {
-	const {products, totalPrice} = useSelector(state => state.cart)
+	const {products, totalPrice} = useSelector(selectCart)
 	const total = products.reduce((sum, product) => sum + product.count, 0)
 	return (
 		<div className={styles.header}>
