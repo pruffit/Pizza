@@ -12,3 +12,21 @@
 	align-items: center;
 	justify-content: space-between;
 }
+.error{
+	padding: 100px 0;
+	margin: 60px auto;
+	width: 650px;
+	text-align: center;
+	h2{
+		font-weight: 700;
+		font-size: 32px;
+		margin-bottom: 20px;
+	}
+	span{
+		font-weight: 800;
+	}
+	p{
+		font-size: 20px;
+		line-height: 1.5;
+	}
+}

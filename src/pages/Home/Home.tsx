@@ -1,9 +1,9 @@
 import { useState, useEffect, useContext, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import axios from 'axios'
 import qs from 'qs'
 import { useNavigate } from 'react-router-dom'
 
+import { fetchProducts } from '../../redux/slices/productSlice'
 import { setCategoryId, setCurrentPage, setFilters } from '../../redux/slices/filterSlice'
 
 import { IProduct } from '../../components/Product/Product.props'
@@ -25,9 +25,9 @@ export const Home = () => {
 	const isMounted = useRef(false)
 
 	const { categoryId, sort, currentPage } = useSelector(state => state.filter)
+	const { items, status } = useSelector(state => state.product)
+
 	const { searchValue } = useContext(SearchContext)
-	const [items, setItems] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
 
 	const onClickCategory = (id : Number) => {
 		dispatch(setCategoryId(id))
@@ -37,14 +37,21 @@ export const Home = () => {
 		dispatch(setCurrentPage(number))
 	}
 
-	const fetchProducts = () => {
-		setIsLoading(true)
-		axios.get(`https://64354499537112453fd1b9bd.mockapi.io/items?page=${currentPage}&limit=4&${categoryId > 0 ? `category=${categoryId}` : ''}&sortBy=${sort.sortProperty.replace('-', '')}&order=${sort.sortProperty.includes('-') ? 'asc' : 'desc'}${searchValue ? `&search=${searchValue}` : ''}`)
-		.then(res => {
-			setItems(res.data)
-			setIsLoading(false)
-		})
-		
+	const getProducts = async () => {
+		const category = categoryId > 0 ? `category=${categoryId}` : ''
+		const sortBy = sort.sortProperty.replace('-', '')
+		const order = sort.sortProperty.includes('-') ? 'asc' : 'desc'
+		const search = searchValue ? `&search=${searchValue}` : ''
+
+		dispatch(fetchProducts({
+				category,
+				sortBy,
+				order,
+				search,
+				currentPage,
+			}),
+		)
+		window.scrollTo(0, 0)
 	}
 
 	useEffect(() => {
@@ -63,9 +70,8 @@ export const Home = () => {
 
   useEffect(() => {
 		window.scrollTo(0, 0)
-		if(!isSearch.current) {
-			fetchProducts()
-		}
+
+			getProducts()
 
 		isSearch.current = false
   }, [categoryId, sort.sortProperty, searchValue, currentPage])
@@ -92,13 +98,22 @@ export const Home = () => {
 				<Sort />
 			</div>
 			<h2 className={styles.title}>Все пиццы</h2>
-			<div className={styles.items}>
-				{
-					isLoading ? 
-					[...new Array(4)].map((_, index) => <ProductSkeleton key={index}/>) :
-					items.map((item : IProduct, index) => <Product key={index} {...item}/>)
-				}
-			</div>
+			{
+				status === 'error' ? (
+					<div className={styles.error}>
+						<h2>Произошла ошибка 😕</h2>
+						<p><span>Ah shit, here we go again.</span><br/> Попробуйте повторить попытку позже.</p>
+					</div>
+				) : (
+					<div className={styles.items}>
+						{
+							status === 'loading' ? 
+							[...new Array(4)].map((_, index) => <ProductSkeleton key={index}/>) :
+							items.map((item : IProduct, index) => <Product key={index} {...item}/>)
+						}
+					</div>
+				)
+			}
 			<Pagination currentPage={currentPage} onChangePage={onChangePage}/>
 		</>
 	)
