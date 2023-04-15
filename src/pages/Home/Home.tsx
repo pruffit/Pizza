@@ -17,7 +17,7 @@ import { Sort } from '../../components/Sort/Sort'
 
 import styles from './Home.module.scss'
 
-export const Home: FC = () => {
+const Home: FC = () => {
 	const dispatch = useAppDispatch()
 
 	const { items, status } = useSelector(selectProduct)
@@ -86,3 +86,4 @@ export const Home: FC = () => {
 		</>
 	)
 }
+export default Home

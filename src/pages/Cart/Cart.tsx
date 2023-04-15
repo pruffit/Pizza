@@ -10,7 +10,7 @@ import { CartItem } from '../../components/CartItem/CartItem'
 import { CartEmpty } from '../../components/CartEmpty/CartEmpty'
 import styles from './Cart.module.scss'
 
-export const Cart: FC = () => {
+const Cart: FC = () => {
 	const dispatch = useDispatch()
 	const { totalPrice, products } = useSelector(selectCart)
 
@@ -148,3 +148,4 @@ export const Cart: FC = () => {
 		)
 	}
 }
+export default Cart

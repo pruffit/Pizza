@@ -4,7 +4,7 @@ import axios from 'axios'
 
 import styles from './ProductPage.module.scss'
 
-export const ProductPage: FC = () => {
+const ProductPage: FC = () => {
 	const [product, setProduct] = useState<{
 		imageUrl: string,
 		title: string,
@@ -28,7 +28,7 @@ export const ProductPage: FC = () => {
 	}, [])
 
 	if(!product) {
-		return <>Загрузка...</>
+		return <div className='loading-fallback'>Загрузка...</div>
 	} else {
 		return (
 			<div className={styles.product}>
@@ -40,3 +40,4 @@ export const ProductPage: FC = () => {
 		)
 	}
 }
+export default ProductPage
