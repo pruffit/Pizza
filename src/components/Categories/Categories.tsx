@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 
 import styles from './Categories.module.scss'
 
@@ -7,7 +7,7 @@ type CategoriesProps = {
 	onClickCategory: (index: number) => void;
 }
 
-export const Categories: FC<CategoriesProps> = ({ categoryId, onClickCategory }) => {
+export const Categories: FC<CategoriesProps> = memo(({ categoryId, onClickCategory }) => {
 	const categories = ['Все','Мясные','Вегетарианские','Гриль','Острые','Закрытые']
 
 	return (
@@ -23,4 +23,4 @@ export const Categories: FC<CategoriesProps> = ({ categoryId, onClickCategory })
 			</ul>
 		</div>
 	)
-}
+})

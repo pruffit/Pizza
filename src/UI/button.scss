@@ -123,4 +123,24 @@
       font-size: 16px;
     }
   }
+  &:disabled{
+    opacity: .4;
+    border-color: gray;
+    svg {
+      path {
+        fill: gray;
+      }
+    }
+    &:hover {
+      background-color: transparent;
+      svg {
+        path {
+          fill: gray;
+        }
+      }
+      &:active{
+        transform: none;
+      }
+    }
+  }
 }
