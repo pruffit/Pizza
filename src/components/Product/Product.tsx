@@ -1,10 +1,10 @@
 import { FC, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { addProduct, selectCartItemById } from '../../redux/slices/cartSlice'
+import { addProduct, ICartItem, selectCartItemById } from '../../redux/slices/cartSlice'
 
 import styles from './Product.module.scss'
-import { Link } from 'react-router-dom'
 
 const typeNames = ['тонкое', 'традиционное']
 
@@ -26,13 +26,14 @@ export const Product: FC<ProductProps> = ({ id, title, imageUrl, types, sizes, p
 	const count = cartProduct ? cartProduct.count : 0
 
 	const onClickAdd = () => {
-		const product = {
+		const product: ICartItem = {
 			id,
 			title,
 			price,
 			imageUrl,
 			type: typeNames[activeType],
 			size: sizes[activeSize],
+			count: 0,
 		}
 		dispatch(addProduct(product))
 	}

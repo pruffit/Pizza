@@ -14,7 +14,7 @@
 ## Description
 
 This is a pet project.
-React, Redux, TypeScript.
+React, Redux Toolkit, TypeScript.
 
 ## Built With
 

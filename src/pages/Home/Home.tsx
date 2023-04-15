@@ -1,13 +1,13 @@
-import { FC, useEffect, useRef } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import qs from 'qs'
-import { useNavigate } from 'react-router-dom'
+import { FC, useCallback, useEffect } from 'react'
+import { useSelector } from 'react-redux'
+
+import { useAppDispatch } from '../../redux/store'
 
 import { fetchProducts, selectProduct } from '../../redux/slices/productSlice'
-import { selectFilter, setCategoryId, setCurrentPage, setFilters } from '../../redux/slices/filterSlice'
+import { selectFilter, setCategoryId, setCurrentPage } from '../../redux/slices/filterSlice'
 
 import { Categories } from '../../components/Categories/Categories'
-import { Sort, sortList } from '../../components/Sort/Sort'
+import { Sort } from '../../components/Sort/Sort'
 import { Product } from '../../components/Product/Product'
 import { ProductSkeleton } from '../../components/Product/Product.skeleton'
 import { Pagination } from '../../components/Pagination/Pagination'
@@ -15,101 +15,64 @@ import { Pagination } from '../../components/Pagination/Pagination'
 import styles from './Home.module.scss'
 
 export const Home: FC = () => {
-	const navigate = useNavigate()
-	const dispatch = useDispatch()
-	const isSearch = useRef(false)
-	const isMounted = useRef(false)
+  const dispatch = useAppDispatch();
 
-	const { categoryId, sort, currentPage, searchValue } = useSelector(selectFilter)
-	const { items, status } = useSelector(selectProduct)
+  const { items, status } = useSelector(selectProduct);
+  const { categoryId, sort, currentPage, searchValue } = useSelector(selectFilter);
 
-	const onClickCategory = (index : number) => {
-		dispatch(setCategoryId(index))
-	}
+  const onChangeCategory = useCallback((index: number) => {
+    dispatch(setCategoryId(index));
+  }, []);
 
-	const onChangePage = (page: number) => {
-		dispatch(setCurrentPage(page))
-	}
+  const onChangePage = (page: number) => {
+    dispatch(setCurrentPage(page));
+  };
 
-	const getProducts = async () => {
-		const category = categoryId > 0 ? `category=${categoryId}` : ''
-		const sortBy = sort.sortProperty.replace('-', '')
-		const order = sort.sortProperty.includes('-') ? 'asc' : 'desc'
-		const search = searchValue ? `&search=${searchValue}` : ''
+  const getProducts = async () => {
+    const sortBy = sort.sortProperty.replace('-', '');
+    const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
+    const category = categoryId > 0 ? String(categoryId) : '';
+    const search = searchValue ? `&search=${searchValue}` : '';
 
-		dispatch(
-			//@ts-ignore
-			fetchProducts({
-				category,
-				sortBy,
-				order,
-				search,
-				currentPage,
-			}),
-		)
-		window.scrollTo(0, 0)
-	}
-
-	useEffect(() => {
-		if(window.location.search) {
-			const params = qs.parse(window.location.search.substring(1))
-			const sort = sortList.find(obj => obj.sortProperty === params.sortProperty)
-			dispatch(
-				setFilters({
-					...params, 
-					sort,
-				})
-			)
-			isSearch.current = true
-		}
-	}, [])
+    dispatch(
+      fetchProducts({
+        sortBy,
+        order,
+        category,
+        search,
+        currentPage: String(currentPage),
+      }),
+    );
+    window.scrollTo(0, 0);
+  };
 
   useEffect(() => {
-		window.scrollTo(0, 0)
 
-			getProducts()
+    getProducts();
 
-		isSearch.current = false
-  }, [categoryId, sort.sortProperty, searchValue, currentPage])
+  }, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
-	useEffect(() => {
-		if(isMounted.current) {
-			const queryString = qs.stringify({
-				sortProperty: sort.sortProperty,
-				categoryId,
-				currentPage,
-			})
-			navigate(`?${queryString}`)
-		}
-		isMounted.current = true
-	}, [categoryId, sort.sortProperty, currentPage])
+  const products = items.map((obj: any) => <Product key={obj.id} {...obj} />);
+  const skeletons = [...new Array(4)].map((_, index) => <ProductSkeleton key={index} />);
 
 	return (
 		<>
 			<div className={styles.top}>
 				<Categories 
 					categoryId={categoryId}
-					onClickCategory={onClickCategory}
+					onClickCategory={onChangeCategory}
 				/>
 				<Sort />
 			</div>
 			<h2 className={styles.title}>Все пиццы</h2>
-			{
-				status === 'error' ? (
-					<div className={styles.error}>
-						<h2>Произошла ошибка 😕</h2>
-						<p><span>Ah shit, here we go again.</span><br/> Попробуйте повторить попытку позже.</p>
-					</div>
-				) : (
-					<div className={styles.items}>
-						{
-							status === 'loading' ? 
-							[...new Array(4)].map((_, index) => <ProductSkeleton key={index}/>) :
-							items.map((item: any, index: number) => <Product key={index} {...item}/>)
-						}
-					</div>
-				)
-			}
+			{status === 'error' ? (
+        <div className={styles.error}>
+					<h2>Произошла ошибка 😕</h2>
+					<p><span>Ah shit, here we go again.</span><br/> Попробуйте повторить попытку позже.</p>
+				</div>
+      ) : (
+        <div className={styles.items}>{status === 'loading' ? skeletons : products}</div>
+      )}
 			<Pagination currentPage={currentPage} onChangePage={onChangePage}/>
 		</>
 	)

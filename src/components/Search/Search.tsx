@@ -1,4 +1,4 @@
-import { FC, useCallback, useRef, useState } from 'react'
+import { ChangeEvent, FC, useCallback, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import debounce from 'lodash.debounce'
 
@@ -9,20 +9,22 @@ import styles from './Search.module.scss'
 export const Search: FC = () => {
   const dispatch = useDispatch()
   const [value, setValue] = useState('')
-  
   const inputRef = useRef<HTMLInputElement>(null)
+
   const onClickClear = () => {
     dispatch(setSearchValue(''))
     setValue('')
     inputRef.current?.focus()
   }
+
   const updateSearchValue = useCallback(
     debounce((str: string) => {
       dispatch(setSearchValue(str))
     }, 300),
     [],
   )
-  const onChangeInput = (event: any) => {
+  
+  const onChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value)
     updateSearchValue(event.target.value)
   }

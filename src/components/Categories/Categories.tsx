@@ -4,7 +4,7 @@ import styles from './Categories.module.scss'
 
 type CategoriesProps = {
 	categoryId: number;
-	onClickCategory: any;
+	onClickCategory: (index: number) => void;
 }
 
 export const Categories: FC<CategoriesProps> = ({ categoryId, onClickCategory }) => {
