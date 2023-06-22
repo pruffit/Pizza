@@ -2,6 +2,9 @@
     
 # React Pizza
 
+![image](https://github.com/pruffit/Pizza/assets/92226657/d3ff3e65-0aec-42f8-849e-024c87eebf30)
+
+
 ## Table of Contents
 
 - [Description](#description)
